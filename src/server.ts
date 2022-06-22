@@ -1,4 +1,4 @@
-import "express-async-errors";
+import("express-async-errors");
 
 import express, { NextFunction } from "express";
 
@@ -15,6 +15,13 @@ const database = new connectDatabase();
 database.connect();
 
 app.use(routes);
+
+app.use((error, request, response, next) => {
+	return response.json({
+		status: "Error",
+		message: error.message
+	})
+});
 
 app.listen(3000, () => {
 	console.log("server running in port 3000");

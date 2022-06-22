@@ -3,7 +3,7 @@ import CreateUserService from "../services/CreateUserService";
 
 class CreateUserController{
 	async handle(req:Request, res:Response){
-		try {
+		try{
 			const {name, email, password} = req.body;
 	
 			const createUserService = new CreateUserService();
@@ -14,11 +14,10 @@ class CreateUserController{
 					password
 			});
 		
-			res.status(200).json(user);
-			
-		} catch (err) {
+			return res.status(200).json(user);
+		}catch(err){
 			console.log(err);
-			return res.status(409).json({error: err});
+			return res.json({error: err})
 		}
 
 	}

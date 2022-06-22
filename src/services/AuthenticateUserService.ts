@@ -15,7 +15,7 @@ class AuthenticateUserService {
 		const userAlreadyExists = await User.findOne({email: email});
 
 		if(!userAlreadyExists){
-			throw new Error(`User or pass does'nt match!`)
+			throw `User or pass does'nt match!`
 		}
 
 		//verify if the pass match
@@ -23,7 +23,7 @@ class AuthenticateUserService {
 		const validPass = await compare(password, userAlreadyExists.password);
 
 		if(!validPass){
-			throw new Error(`User or pass does'nt match!`);
+			throw `User or pass does'nt match!`;
 		}
 
 		//generate JWT token
