@@ -1,18 +1,13 @@
 import express from "express";
 
-import AuthenticateUserUseCase from "./useCases/authenticateUser/AuthenticateUserUseCase";
+import routes from "./routes";
 
 const app = express();
 
-const user = {
-	name: "Jao",
-	email: "asdre@gmail.com",
-	password: "g0dut0p1c"
-}
+app.use(express.json());
 
-const connect = new AuthenticateUserUseCase();
+app.use(routes);
 
-connect.execute(user);
 
 app.listen(3000, () => {
 	console.log("server running in port 3000");

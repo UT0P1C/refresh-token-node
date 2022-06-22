@@ -1,6 +1,8 @@
 import {connect} from "mongoose";
 
-import User from "../../models/User";
+import User from "../models/User";
+
+import {hash} from "bcryptjs";
 
 require("dotenv").config()
 
@@ -10,7 +12,7 @@ interface IUserRequest {
 	password: string;
 }
 
-class AuthenticateUserUseCase{
+class CreateUserService{
 	async execute({name, email, password}:IUserRequest){
 
 		//connect to db
@@ -27,19 +29,23 @@ class AuthenticateUserUseCase{
 			throw new Error("the user already exists");
 		}
 
+		//encrypt the pass
+
+		const hashedPass = await hash(password, 12)
+
 		//create new user
-		const createUser = new User({
+		const createdUser = new User({
 			name: name,
 			email: email,
-			password: password
+			password: hashedPass
 		});
 
-		await createUser.save();
+		await createdUser.save();
 	
-		console.log(createUser); 
+		return(createdUser); 
 	}
 	
 }
 
 
-export default AuthenticateUserUseCase;
+export default CreateUserService;
