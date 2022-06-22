@@ -6,20 +6,14 @@ import {hash} from "bcryptjs";
 
 require("dotenv").config()
 
-interface IUserRequest {
+interface ICreateUserRequest {
 	name: string;
 	email: string;
 	password: string;
 }
 
 class CreateUserService{
-	async execute({name, email, password}:IUserRequest){
-
-		//connect to db
-		const db_user = process.env.DB_USER;
-		const db_pass = process.env.DB_PASS
-	
-		await connect(`mongodb+srv://${db_user}:${db_pass}@node-type-jwt.okcvq.mongodb.net/?retryWrites=true&w=majority`);
+	async execute({name, email, password}:ICreateUserRequest){
 
 		//verify if the user exists
 		
