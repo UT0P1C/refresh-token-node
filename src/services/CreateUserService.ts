@@ -26,7 +26,7 @@ class CreateUserService{
 		const userAlreadyExists = await User.findOne({email: email});
 
 		if(userAlreadyExists){
-			throw new Error("the user already exists");
+			throw `user already exists`
 		}
 
 		//encrypt the pass
