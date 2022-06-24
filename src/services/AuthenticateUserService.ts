@@ -34,7 +34,9 @@ class AuthenticateUserService {
 			{
 			id: userAlreadyExists.id
 			}, 
-			secret);
+			secret, {
+				expiresIn: "20s"
+			});
 
 		return token;
 
